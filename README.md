@@ -35,10 +35,12 @@ uvicorn app.main:app --reload
 
 API runs on http://localhost:8000. Interactive docs: http://localhost:8000/docs
 
-Run the tests:
+Run the tests (from the repo root):
 
 ```bash
-pytest
+make install   # runtime + dev deps (pytest-bdd, ruff)
+make test      # all implemented requirements + unit tests
+make check     # lint + tests, run before every commit
 ```
 
 ### Frontend (Node 16+)
@@ -65,6 +67,30 @@ App runs on http://localhost:5173. Requests to `/api` are proxied to the backend
 | GET    | `/api/bookings`       | List bookings                       |
 | POST   | `/api/bookings`       | Book a car (price computed, overlaps rejected) |
 | DELETE | `/api/bookings/{id}`  | Cancel a booking                    |
+
+## Requirements as code
+
+Requirements are executable Gherkin scenarios in `backend/tests/features/`, each tagged with a unique ID:
+
+| File | Covers |
+|---|---|
+| `cars.feature` | `REQ-SYS-001`, `REQ-CAR-001` … `REQ-CAR-007` |
+| `bookings.feature` | `REQ-BKG-001` … `REQ-BKG-009` |
+| `backlog.feature` | `REQ-BKG-010` … `REQ-BKG-012`, agreed but **not implemented yet** |
+
+```bash
+make req ID=REQ-BKG-001   # run one requirement
+make test-backlog         # include backlog (these fail until implemented)
+```
+
+## Working with Claude Code
+
+- `CLAUDE.md`: project context, commands, domain rules and gotchas, loaded automatically.
+- `.claude/skills/`: `implement-requirement` (spec-first workflow), `backend-standards`,
+  `testing-standards`, `frontend-standards`.
+- `.claude/settings.json`: lets Claude run `make test`, `make check`, `pytest` and `ruff` without prompting.
+
+Try: *"Implement REQ-BKG-010"* or *"Implement the whole backlog, one requirement at a time."*
 
 ## Configuration
 

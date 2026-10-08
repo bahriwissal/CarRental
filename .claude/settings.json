@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(make help)",
+      "Bash(make test)",
+      "Bash(make test-backlog)",
+      "Bash(make req:*)",
+      "Bash(make lint)",
+      "Bash(make fmt)",
+      "Bash(make check)",
+      "Bash(make frontend-build)",
+      "Bash(cd backend && python -m pytest:*)",
+      "Bash(cd backend && python3 -m pytest:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(pytest:*)",
+      "Bash(ruff check:*)",
+      "Bash(ruff format:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./backend/.env)"
+    ]
+  }
+}
