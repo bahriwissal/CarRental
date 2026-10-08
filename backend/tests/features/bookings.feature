@@ -71,3 +71,9 @@ Feature: Booking a car
     And "Early" has booked "Renault Clio" from "today+5" to "today+7"
     When I list the bookings
     Then the booking customers are "Early, Late"
+
+  @REQ-BKG-010
+  Scenario: A booking cannot start in the past
+    When "Jane" books "Renault Clio" from "today-1" to "today+2"
+    Then the response status is 422
+    And the error detail contains "start_date cannot be in the past"

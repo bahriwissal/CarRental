@@ -37,6 +37,8 @@ class BookingCreate(BaseModel):
 
     @model_validator(mode="after")
     def check_dates(self):
+        if self.start_date < date.today():
+            raise ValueError("start_date cannot be in the past")
         if self.end_date <= self.start_date:
             raise ValueError("end_date must be after start_date")
         return self

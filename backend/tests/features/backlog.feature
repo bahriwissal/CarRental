@@ -7,12 +7,6 @@ Feature: Backlog (specified, not implemented yet)
   Background:
     Given a car "Renault Clio" priced 50 per day
 
-  @REQ-BKG-010
-  Scenario: A booking cannot start in the past
-    When "Jane" books "Renault Clio" from "today-1" to "today+2"
-    Then the response status is 422
-    And the error detail contains "start_date cannot be in the past"
-
   @REQ-BKG-011
   Scenario: Fetch a single booking by id
     Given "Jane" has booked "Renault Clio" from "today+10" to "today+13"
